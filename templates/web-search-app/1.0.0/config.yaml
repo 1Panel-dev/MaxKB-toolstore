@@ -1,0 +1,17 @@
+# 搜索引擎配置
+search_engine: "your-search-engine"  # 您使用的搜索引擎
+
+# API 配置
+api_key: "your-api-key"  # API 密钥
+api_url: "https://api.example.com"  # API 地址
+
+# 搜索参数
+max_results: 10  # 最大搜索结果数
+timeout: 30  # 请求超时时间（秒）
+language: "zh"  # 搜索语言
+
+# 结果过滤
+filter:
+  enabled: true
+  min_score: 0.5  # 最小相关性分数
+  exclude_domains: []  # 排除的域名列表

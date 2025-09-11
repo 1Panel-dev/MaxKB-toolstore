@@ -1,0 +1,29 @@
+# 数据库连接配置
+database:
+  type: "mongodb"  # 数据库类型: mongodb, mysql, postgresql, redis等
+  host: "localhost"  # 数据库主机地址
+  port: 27017  # 数据库端口
+  username: "user"  # 用户名
+  password: "password"  # 密码
+  database: "testdb"  # 数据库名称
+  
+  # 连接池配置
+  pool:
+    min_connections: 5
+    max_connections: 20
+    
+  # 连接选项
+  options:
+    connect_timeout: 10  # 连接超时时间（秒）
+    socket_timeout: 30  # 套接字超时时间（秒）
+    ssl: false  # 是否使用SSL
+
+# 查询配置
+query:
+  max_results: 1000  # 最大查询结果数
+  timeout: 30  # 查询超时时间（秒）
+  
+# 安全配置
+security:
+  enable_query_validation: true  # 启用查询验证
+  allowed_operations: ["SELECT", "FIND"]  # 允许的操作类型

@@ -1,0 +1,31 @@
+# AI服务配置
+ai_service:
+  provider: "openai"  # AI服务提供商: openai, azure, local等
+  api_key: "your-api-key"  # API密钥
+  api_url: "https://api.openai.com/v1"  # API地址
+  
+  # 模型配置
+  model: "gpt-3.5-turbo"  # 使用的模型
+  max_tokens: 1000  # 最大token数
+  temperature: 0.7  # 温度参数
+  top_p: 1.0  # Top-p参数
+  
+  # 请求配置
+  timeout: 60  # 请求超时时间（秒）
+  retries: 3  # 重试次数
+
+# 本地模型配置（如果使用本地模型）
+local_model:
+  model_path: "./models/your-model"  # 模型文件路径
+  device: "auto"  # 设备: cpu, cuda, auto
+  max_memory: "8GB"  # 最大内存使用
+
+# 处理配置
+processing:
+  batch_size: 1  # 批处理大小
+  max_length: 2048  # 最大输入长度
+  
+# 缓存配置
+cache:
+  enabled: true  # 是否启用缓存
+  ttl: 3600  # 缓存过期时间（秒）

@@ -1,0 +1,6 @@
+# 忽略模板中的临时文件
+templates/**/__pycache__/
+templates/**/*.pyc
+templates/**/*.pyo
+templates/**/.env
+templates/**/config_local.yaml
