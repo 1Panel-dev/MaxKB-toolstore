@@ -1,0 +1,5 @@
+name: 邮箱消息推送
+tags:
+  - 消息推送
+title: 邮箱消息推送
+description: 基于 Python smtplib 和 email 库封装的邮件通知工具函数，支持发送文本邮件、添加收件人和抄送人、支持 SSL/TLS 加密，适用于告警通知、自动化运维、业务消息推送等场景。
