@@ -45,3 +45,10 @@ additionalProperties:
         en: "Translation Tool"
         zh-hant: "翻譯工具"
         zh: "翻译工具"
+    - key: data_source
+      name: 数据源
+      sort: 70
+      locales:
+        en: "Data Source"
+        zh-hant: "數據源"
+        zh: "数据源"
