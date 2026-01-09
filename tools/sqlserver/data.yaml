@@ -1,0 +1,5 @@
+name: SQLServer 数据库查询
+tags:
+  - 数据库查询
+title: 实现 Microsoft SQL Server 的查询操作
+description: 实现 Microsoft SQL Server 的查询操作,支持对接 SQL Server 2012 及以上版本.
