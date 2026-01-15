@@ -1,0 +1,5 @@
+name: SQLBot AI 智能体
+tags:
+  - 智能体模版
+title: SQLBot AI 智能体
+description: 用于在 MaxKB 中智能调用 SQLBot 查询数据的 AI 智能体。
