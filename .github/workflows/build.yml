@@ -19,3 +19,4 @@ jobs:
     - name: Upload Assets to OSS
       run: |
         ossutil sync tools oss://apps-fit2cloud-com/stable/maxkb --update --delete --force
+        ossutil set-meta oss://apps-fit2cloud-com/stable/maxkb -r --include "*.mk" --meta Content-Disposition:attachment
