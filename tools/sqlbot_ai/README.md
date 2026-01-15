@@ -11,7 +11,7 @@ SQLBot AI 智能体应用具有以下功能：
 
 ## 三、应用构建要素
 
-CRM 智能记录智能体应用构建时涉及的核心要素内容：
+SQLBot AI 智能体应用构建时涉及的核心要素内容：
 - 大模型：deepseek-chat
 - MCP ：SQLBot MCP: https://dataease.cn/sqlbot/v1/mcp_server/
 
