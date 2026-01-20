@@ -133,7 +133,7 @@ AI 发票智能识别 Agent 是一个基于 MaxKB 平台的智能体，专门用
 
 - 工作流：部分截图
 
-！[工作流截图](https://maxkb-apps-1323865188.cos.ap-shanghai.myqcloud.com/invoice_recognition.png)
+<img src="https://maxkb-apps-1323865188.cos.ap-shanghai.myqcloud.com/invoice_recognition.png">
 
 ## 四、应用效果
-![alt text](https://maxkb-apps-1323865188.cos.ap-shanghai.myqcloud.com/invoice_recognition.gif)。
+<img src="https://maxkb-apps-1323865188.cos.ap-shanghai.myqcloud.com/invoice_recognition.gif">
