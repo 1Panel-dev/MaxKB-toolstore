@@ -1,0 +1,5 @@
+name: 获取 AI 执行 MCP 的 output 结果
+tags:
+  - 内容处理
+title: 在 AI 节点添加 MCP 节点，并执行 AI 节点，获取 MCP 节点的 output 输出结果。
+description: 在 AI 节点添加 MCP 节点，并执行 AI 节点，获取 MCP 节点的 output 输出结果。

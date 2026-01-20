@@ -1,0 +1,5 @@
+name: HTML 转 PDF 转换工具
+tags:
+  - 内容处理
+title: 基于 PDF API 服务封装的 Python 工具函数，支持将 HTML 内容转换为 PDF 文件。
+description: 基于 PDF API 服务封装的 Python 工具函数，支持将 HTML 内容转换为 PDF 文件。
