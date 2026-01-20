@@ -8,6 +8,7 @@
 ## 二、应用功能
 
 CRM 客户关系录入AI智能体应用主要包含以下几个大功能：
+
 - 线索录入：用户通过自然语言与AI智能体对话，告知需创建的线索相关信息，智能体将引导用户补充完整必填项，校验信息合规性后生成标准化线索数据，再调用 Cordys CRM MCP 工具，将已确认的线索信息精准写入 Cordys CRM 系统，实现线索快速录入。
 - 客户录入：支持用户以自然语言描述客户基础信息（如企业名称、行业、区域等），AI智能体逐一向用户确认缺失的必填内容，整合形成规范的客户数据并生成JSON格式文件，经用户最终确认后，调用 Cordys CRM MCP 工具完成客户信息向系统的写入操作。
 - 商机录入：用户通过自然语言说明商机名称、关联客户、金额等核心信息，AI智能体对信息进行补全引导，确保商机信息完整可追溯，生成符合系统要求的商机数据，待用户确认无误后，调用 Cordys CRM MCP 工具将商机信息同步至 Cordys CRM 系统，实现商机高效建档。
@@ -16,10 +17,11 @@ CRM 客户关系录入AI智能体应用主要包含以下几个大功能：
 ## 三、应用构建要素
 
 CRM 客户关系录入AI智能体应用构建时涉及的核心要素内容：
+
 - 大模型：deepseek-chat
 - MCP ：Cordys CRM MCP: https://cordys.cn/docs/mcp_server/#41-maxkb
 - 工具：提取AI内容里面的json
-- 子应用：Cordys 查重、获取登录用户信息、Cordys 循环补充线索 
+- 子应用：[Cordys 查重](https://maxkb-apps-1323865188.cos.ap-shanghai.myqcloud.com/Cordys查重.mk)、[获取登录用户信息](https://maxkb-apps-1323865188.cos.ap-shanghai.myqcloud.com/获取登录用户信息.mk)、[Cordys 循环补充线索](https://maxkb-apps-1323865188.cos.ap-shanghai.myqcloud.com/CRM循环补充客户关系智能体.mk) 
 
 需要涉及到的参数（每个应用都需要）：
 
