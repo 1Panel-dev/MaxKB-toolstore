@@ -30,6 +30,14 @@ Kodbox 是一个开源的在线文件管理器，提供了方便的文件浏览�
 pip install requests python-docx
 ```
 
+### 配置参数
+MaxKB v2.4 及以上版本，需修改配置文件 `/opt/maxkb/maxkb.env` 
+
+```bash
+MAXKB_SANDBOX_TMP_DIR_ENABLED=1
+MAXKB_SANDBOX_PYTHON_ALLOW_SUBPROCESS=1
+```
+
 ## 参数说明
 
 ### 启动参数    
@@ -45,3 +53,4 @@ pip install requests python-docx
 | `content` | 字符串     | Markdown 文本| |
 | `file_name`   | 字符串   | DOCX 文件名 | |
 | `base_image_url` | 字符串   | MaxKB 知识库中图片地址前缀 | `https://<MaxKB_URL>/admin/` |
+
