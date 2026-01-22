@@ -51,4 +51,4 @@
 ![工作流截图](https://maxkb-apps-1323865188.cos.ap-shanghai.myqcloud.com/%E5%90%88%E5%90%8C%E5%AE%A1%E6%A0%B8%E6%99%BA%E8%83%BD%E4%BD%93%E5%B7%A5%E4%BD%9C%E6%B5%81%E6%88%AA%E5%9B%BE.png)
 
 ## 四、应用效果
-![alt text](https://maxkb-apps-1323865188.cos.ap-shanghai.myqcloud.com/合同审核智能体.gif)。
+![](https://maxkb-apps-1323865188.cos.ap-shanghai.myqcloud.com/合同审核智能体.gif)
