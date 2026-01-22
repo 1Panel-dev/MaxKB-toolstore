@@ -21,7 +21,6 @@ CRM 客户关系录入AI智能体应用构建时涉及的核心要素内容：
 - 大模型：deepseek-chat
 - MCP ：Cordys CRM MCP: https://cordys.cn/docs/mcp_server/#41-maxkb
 - 工具：提取AI内容里面的json
-- 子应用：Cordys 查重、获取登录用户信息、Cordys 循环补充线索 
 - 子应用：[Cordys 查重](https://maxkb-apps-1323865188.cos.ap-shanghai.myqcloud.com/Cordys查重.mk)、[获取登录用户信息](https://maxkb-apps-1323865188.cos.ap-shanghai.myqcloud.com/获取登录用户信息.mk)、[Cordys 循环补充线索](https://maxkb-apps-1323865188.cos.ap-shanghai.myqcloud.com/CRM循环补充客户关系智能体.mk) 
 
 需要涉及到的参数（每个应用都需要）：
