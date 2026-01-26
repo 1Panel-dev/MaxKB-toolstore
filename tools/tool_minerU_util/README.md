@@ -10,12 +10,33 @@
 
 https://mineru.site/%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/2025/05/22/1fa9e6fa-6062-8065-82db-cc0cf9818496
 
+### 配置参数
+MaxKB v2.4 及以上版本，需修改配置文件 `/opt/maxkb/conf/maxkb.env`
+
+```bash
+MAXKB_SANDBOX_TMP_DIR_ENABLED=1
+MAXKB_SANDBOX_PYTHON_ALLOW_SUBPROCESS=1
+MAXKB_SANDBOX_PYTHON_PROCESS_LIMIT_MEM_MB=521
+```
+重启 maxkb 容器
+```bash
+docker restart maxkb
+```
+
 ### 安装依赖
 
 在使用此工具之前，需要先安装所需的依赖包：
 
 ```bash
+# 到 maxkb 容器内安装 gradio_client
+docker exec -it maxkb bash
 pip install gradio_client
+
+# 如果安装 gradio_client 提示 huggingface-hub 版本冲突，则使用 pip 的兼容性模式，同时安装兼容版本
+pip install gradio client huggingface-hub==0.34.0
+
+# 授权 tmp 目录的访问操作权限
+chmod 777 /tmp
 ```
 
 ## 参数说明
@@ -26,7 +47,7 @@ pip install gradio_client
 | `enable_formula`        | 开关           | 控制是否提取文件中的数学公式                             | True                                                        |
 | `language`              | 字符串          | 指定文件内容的主要语言（影响 OCR 识别准确率）              | `ch`                                                        |
 | `enable_table`          | 开关           | 控制是否提取文件中的表格结构并转换为 Markdown 表格          | True                                                        |
-| `download_dir`          | 字符串          | 存储下载的原始文件和解析临时文件的目录路径                  | `/opt/maxkb-app/sandbox`                                    |
+| `download_dir`          | 字符串          | 存储下载的原始文件和解析临时文件的目录路径                  | `/tmp`                                                      |
 | `upload_url`            | 字符串          | 图片上传至 OSS 存储的接口地址                           | `http://MaxKB 服务器 ip:MaxKB 服务端口(默认8080)/admin/api/oss/file` |
 | `upload_token`          | 字符串          | 在 MaxKB 的 API Key 管理中创建的 API Key              | API Key                                                     |
 | `url_prefix`            | 字符串          | 拼接 file_input 中相对路径的前缀，生成完整文件下载 URL      | `http://MaxKB 服务器 ip:MaxKB 服务端口(默认8080)/admin`              |
