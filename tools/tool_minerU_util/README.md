@@ -33,7 +33,7 @@ docker exec -it maxkb bash
 pip install gradio_client
 
 # 如果安装 gradio_client 提示 huggingface-hub 版本冲突，则使用 pip 的兼容性模式，同时安装兼容版本
-pip install gradio client huggingface-hub==0.34.0
+pip install gradio_client huggingface-hub==0.34.0
 
 # 授权 tmp 目录的访问操作权限
 chmod 777 /tmp
