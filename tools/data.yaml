@@ -66,3 +66,10 @@ additionalProperties:
         en: "Agent Template"
         zh-hant: "智能體範本"
         zh: "智能体模板"
+    - key: model_memory
+      name: 模型记忆
+      sort: 100
+      locales:
+        en: "Model Memory"
+        zh-hant: "模型記憶"
+        zh: "模型记忆"
