@@ -16,8 +16,11 @@
 | 参数名 | 数据类型 | 必填 | 默认值 | 说明 |
 | :--- | :--- | :--- | :--- | :--- |
 | `query` | string | 是 | - | 搜索关键词 |
-| `max_results` | int | 否 | `10` | 返回的最大结果数量 |
+| `max_results` | int | 否 | `10` | 返回的最大结果数量（1-20） |
 | `search_type` | string | 否 | `text` | 搜索类型：`text`(文字搜索) 或 `image`(图片搜索) |
+| `region` | string | 否 | `cn-zh` | 搜索区域，如 `cn-zh`(中国)、`us-en`(美国)、`uk-en`(英国) 等 |
+| `timeout` | int | 否 | `15` | 请求超时时间（秒） |
+| `proxy` | string | 否 | `None` | 代理服务器地址，格式如 `http://proxy.example.com:8080` |
 
 ---
 
@@ -28,7 +31,9 @@ from ddgs import DDGS
 import json
 
 
-def duckduckgo_search(query, max_results=10, search_type='text'):
+def duckduckgo_search(
+    query, max_results=10, search_type="text", region="cn-zh", timeout=15, proxy=None
+):
     """
     使用 DuckDuckGo 进行搜索（统一入口函数）
 
@@ -48,17 +53,19 @@ def duckduckgo_search(query, max_results=10, search_type='text'):
         if max_results > 20:
             max_results = 20
         # 创建 DDGS 实例并执行搜索
-        with DDGS() as ddgs:
-            if search_type == 'image':
-                results = list(ddgs.images(
-                    keywords=query,
-                    max_results=max_results
-                ))
-            else:
-                results = list(ddgs.text(
-                    keywords=query,
-                    max_results=max_results
-                ))
+        ddgs = DDGS(timeout=timeout, proxy=proxy)
+        if search_type == "image":
+            results = list(
+                ddgs.images(
+                    query=query,
+                    region=region,
+                    max_results=max_results,
+                )
+            )
+        else:
+            results = list(
+                ddgs.text(query=query, region=region, max_results=max_results)
+            )
 
         # 返回 JSON 格式的结果
         return json.dumps(results, ensure_ascii=False, indent=2)
@@ -66,9 +73,20 @@ def duckduckgo_search(query, max_results=10, search_type='text'):
     except Exception as e:
         error_result = {
             "error": str(e),
-            "message": f"{search_type}搜索失败，请检查网络连接或稍后重试"
+            "message": f"{search_type}搜索失败，请检查网络连接或稍后重试",
         }
         return json.dumps(error_result, ensure_ascii=False, indent=2)
+
+
+if __name__ == "__main__":
+    query = "猫"
+    max_results = 5
+    search_type = "image"
+    region = "cn-zh"
+    timeout = 15
+    result = duckduckgo_search(query, max_results, search_type, region, timeout)
+    print(result)
+
 ```
 
 ---
