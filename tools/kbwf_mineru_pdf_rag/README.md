@@ -22,10 +22,17 @@
 
 ### 1. 前置准备
 
-在运行本工作流之前，请确保您已拥有以下服务的访问权限：
+在运行本工作流之前，请确保您已拥有以下服务的访问权限，并完成必要的环境配置：
 
 * **MaxKB 实例**：用于托管工作流及存储解析后的知识库。
+    * **关键配置检查**：
+        * **磁盘写权限**：请确保 MaxKB 容器环境变量 `MAXKB_SANDBOX_TMP_DIR_ENABLED` 设置为 `1`。这是因为本工作流依赖 `/tmp` 目录进行大文件缓存，默认的只读权限会导致下载失败。
+        * **超时设置**：如果需处理超过 50MB 的大文件，建议将环境变量 `MAXKB_SANDBOX_PYTHON_PROCESS_LIMIT_TIMEOUT_SECONDS` 设置为 `3600` (1小时) 或更高，防止任务被强制终止。
+        * **内存限制**：MaxKB 沙箱默认内存限制为 256MB。如果需要高性能解析，建议将 `MAXKB_SANDBOX_PYTHON_PROCESS_LIMIT_MEM_MB` 调整为 `1024` (1GB) 或更高。
 * **MinerU API Token**：用于调用 MinerU 的 PDF 解析服务。可前往 [MinerU 官网](https://mineru.net/) 获取。
+* **网络连通性**：
+    * MaxKB 服务器必须能够访问公网（连接 MinerU API）。
+    * MinerU 服务器必须能够访问 MaxKB 的 `maxkb_base_url`（下载源 PDF）。请确保该地址是公网可达的。
 
 ### 2. 工作流概览 (Workflow Overview)
 
@@ -114,18 +121,37 @@
 
 ## ⚠️ 注意事项 (Notes)
 
-1.  **超时设置 (Timeout)**：
-    * 对于超过 50MB 的大文件，PDF 解析与图片上传耗时较长。请务必检查 MaxKB 容器环境变量 `MAXKB_SANDBOX_PYTHON_PROCESS_LIMIT_TIMEOUT_SECONDS`，建议设置为 `3600` (1小时) 或更高，防止任务因执行时间过长而被强制终止。
+1.  **内存配置建议**：
+    * 如果您的 MaxKB 容器必须运行在默认的 **256MB** 内存限制下，请务必严格遵守以下参数配置，否则极易发生 OOM 错误：
+        * `concurrency`: **4** 及以下
+        * `queue_size`: **8** 及以下
+    * 如果您已将内存限制提升至 **1GB** (`MAXKB_SANDBOX_PYTHON_PROCESS_LIMIT_MEM_MB=1024`)，建议配置如下以获得最佳性能：
+        * `concurrency`: **8** 及以上
+        * `queue_size`: **30** 及以上
 
-2.  **内存限制 (Memory Limit)**：
-    * MaxKB 沙箱默认内存限制为 **256MB** (`MAXKB_SANDBOX_PYTHON_PROCESS_LIMIT_MEM_MB=256`)。
-    * **建议优化**：如果您需要处理高清多图的 PDF 或希望提高 `queue_size` 以获得更快的解析速度，强烈建议将此环境变量修改为 `1024` (1GB) 或更高。
+2.  **网络环境**：
+    * 确保 MaxKB 容器的出站网络畅通，能够连接 MinerU 的 API 接口。
 
-3.  **网络连通性 (Connectivity)**：
-    * MaxKB 服务器必须能够访问公网（连接 MinerU API）。
-    * MinerU 服务器必须能够访问 MaxKB 的 `maxkb_base_url`（下载源 PDF）。请确保该地址是公网可达的。
+## ❓ 常见问题 (FAQ)
 
-4.  **低配环境配置**：
-    * 如果您的 MaxKB 容器必须运行在默认的 256MB 内存限制下，请务必严格遵守以下参数配置，否则极易发生 OOM (Out Of Memory) 错误：
-        * `concurrency`: **4**
-        * `queue_size`: **8**
+
+**Q1: 我遇到了 "Permission denied: /tmp/..." 错误，该怎么办？**
+> **原因**：MaxKB 默认禁止 Python 脚本写入本地文件系统，而本工作流需要使用 `/tmp` 目录缓存下载的大文件。
+> **解决**：必须在环境变量中设置 `MAXKB_SANDBOX_TMP_DIR_ENABLED=1` 以开启临时目录写权限。
+
+**Q2: 脚本运行中途“静默”退出，没有 Python 报错堆栈，怎么回事？**
+> **原因**：极有可能是发生了 **OOM (内存溢出)**，导致进程被操作系统强行杀掉。
+> **解决**：
+> 1. 检查 `queue_size` 是否设置过大，建议调小至 `5` 或 `8`。
+> 2. 检查 `concurrency` 是否过高，建议调小至 `2`。
+> 3. 如果条件允许，将容器内存限制 `MAXKB_SANDBOX_PYTHON_PROCESS_LIMIT_MEM_MB` 提升至 `1024`。
+
+**Q3: MinerU 报错 "Download failed" 或一直卡在解析中？**
+> **原因**：MinerU 服务器无法访问你提供的 `maxkb_base_url` 下载源文件。
+> **解决**：请确保 `maxkb_base_url` 填写的是 **公网可访问** 的地址（例如 `https://kb.yourcompany.com`），而不是 `http://localhost` 或 `http://127.0.0.1`。
+
+**Q4: 为什么解析出来的图片在 MaxKB 预览里看不到？**
+> **原因**：图片可能上传成功，但 Markdown 中的链接地址错误，或者是浏览器无法访问该图片地址。
+> **解决**：检查节点 2 的 `maxkb_base_url` 参数，确保它生成的图片 URL 是您浏览器可以直接访问的地址。
+
+---
