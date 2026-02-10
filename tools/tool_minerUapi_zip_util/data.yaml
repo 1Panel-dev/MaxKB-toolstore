@@ -1,0 +1,5 @@
+name: MinerU 在线 API PDF 解析 ZIP 获取
+tags:
+  - 内容处理
+title: 调用在线 MinerU API 解析 PDF 获取 ZIP 的工具
+description: PDF 解析 RAG 工作流知识库模板工具 1 ，为必须组成部分。用于创建 MinerU PDF 解析任务，最终轮询获得解析后的 ZIP 压缩包；也可以单独使用获取 MinerU 的 PDF 解析 ZIP 压缩包结果

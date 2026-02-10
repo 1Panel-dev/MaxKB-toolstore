@@ -1,0 +1,5 @@
+name: MinerU 解析文件上传与资源路径替换
+tags:
+  - 内容处理
+title: MinerU 解析文件上传与资源路径替换的工具
+description: PDF 解析 RAG 工作流知识库模板工具 2 ，为必须组成部分。MinerU 解析出 PDF 结果 ZIP 包下载到本地临时目录，图片上传到 MaxKB 对象存储，Markdown 里的本地图片路径替换对象存储路径，输出文本给出下一个节点
