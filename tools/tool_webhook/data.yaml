@@ -1,0 +1,5 @@
+name: Webhook 触发数据推送
+tags:
+  - 消息推送
+title: Webhook 触发数据推送
+description: 调用指定的外部系统 Webhook 接口，向目标 URL 发送 HTTP 请求，用于触发外部系统的数据推送、事件通知或业务流程。
