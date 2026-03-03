@@ -75,7 +75,7 @@ additionalProperties:
         zh: "模型记忆"
     - key: skill
       name: 技能
-      sort: 100
+      sort: 110
       locales:
         en: "SKILL"
         zh-hant: "技能"
