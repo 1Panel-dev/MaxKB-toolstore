@@ -30,7 +30,7 @@ pip install requests -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 #### 填写示例：
 
-`headers`: excel的表头，如'["状态", "记忆","内容","标签","更新时间","响应","错误信息"]'
+`headers`: excel的表头，如 ["状态", "记忆","内容","标签","更新时间","响应","错误信息"]
 
 `data_list`: 要写入excel的数据，如
 ```
