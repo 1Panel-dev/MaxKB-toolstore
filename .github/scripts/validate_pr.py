@@ -51,57 +51,59 @@ def validate_tool_dir(tool_path, valid_tags):
         f"[{tool_name}] 目录名前缀无效，必须以 {VALID_PREFIXES} 之一开头"
     )
 
-    # 2. 必要文件
-    for fname in REQUIRED_FILES:
-        check(
-            os.path.isfile(os.path.join(tool_path, fname)),
-            f"[{tool_name}] 缺少必要文件: {fname}"
-        )
-
-    # 3. 至少一个版本目录
+    # 2. 至少一个版本目录
     version_dirs = [
         d for d in os.listdir(tool_path)
         if os.path.isdir(os.path.join(tool_path, d)) and VERSION_RE.match(d)
     ] if os.path.isdir(tool_path) else []
     check(len(version_dirs) > 0, f"[{tool_name}] 缺少版本目录（如 1.0.0）")
 
-    # 4. data.yaml 内容校验
-    yaml_path = os.path.join(tool_path, 'data.yaml')
-    if os.path.isfile(yaml_path):
-        try:
-            with open(yaml_path, encoding='utf-8') as f:
-                data = yaml.safe_load(f)
-            for field in REQUIRED_YAML_FIELDS:
-                check(
-                    field in data and data[field],
-                    f"[{tool_name}] data.yaml 缺少字段或为空: {field}"
-                )
-            if valid_tags and 'tags' in data and isinstance(data['tags'], list):
-                for tag in data['tags']:
-                    check(
-                        tag in valid_tags,
-                        f"[{tool_name}] data.yaml 中 tag '{tag}' 不合法，可选值: {sorted(valid_tags)}"
-                    )
-        except yaml.YAMLError as e:
-            errors.append(f"[{tool_name}] data.yaml 解析失败: {e}")
-
-    # 5. README.md 非空
-    readme_path = os.path.join(tool_path, 'README.md')
-    if os.path.isfile(readme_path):
-        content = open(readme_path, encoding='utf-8').read().strip()
-        check(len(content) > 50, f"[{tool_name}] README.md 内容过少，请补充工具说明")
-        if tool_name.startswith('tool_'):
+    # 3. 每个版本目录下检查必要文件
+    for version in version_dirs:
+        version_path = os.path.join(tool_path, version)
+        for fname in REQUIRED_FILES:
             check(
-                '参数' in content or 'parameter' in content.lower(),
-                f"[{tool_name}] 工具类 README.md 建议包含参数说明",
-                is_warn=True
+                os.path.isfile(os.path.join(version_path, fname)),
+                f"[{tool_name}/{version}] 缺少必要文件: {fname}"
             )
 
-    # 6. logo.png 大小
-    logo_path = os.path.join(tool_path, 'logo.png')
-    if os.path.isfile(logo_path):
-        size_kb = os.path.getsize(logo_path) / 1024
-        check(size_kb <= 500, f"[{tool_name}] logo.png 过大 ({size_kb:.1f}KB)，建议不超过 500KB", is_warn=True)
+        # 4. data.yaml 内容校验
+        yaml_path = os.path.join(version_path, 'data.yaml')
+        if os.path.isfile(yaml_path):
+            try:
+                with open(yaml_path, encoding='utf-8') as f:
+                    data = yaml.safe_load(f)
+                for field in REQUIRED_YAML_FIELDS:
+                    check(
+                        field in data and data[field],
+                        f"[{tool_name}/{version}] data.yaml 缺少字段或为空: {field}"
+                    )
+                if valid_tags and 'tags' in data and isinstance(data['tags'], list):
+                    for tag in data['tags']:
+                        check(
+                            tag in valid_tags,
+                            f"[{tool_name}/{version}] data.yaml 中 tag '{tag}' 不合法，可选值: {sorted(valid_tags)}"
+                        )
+            except yaml.YAMLError as e:
+                errors.append(f"[{tool_name}/{version}] data.yaml 解析失败: {e}")
+
+        # 5. README.md 非空
+        readme_path = os.path.join(version_path, 'README.md')
+        if os.path.isfile(readme_path):
+            content = open(readme_path, encoding='utf-8').read().strip()
+            check(len(content) > 50, f"[{tool_name}/{version}] README.md 内容过少，请补充工具说明")
+            if tool_name.startswith('tool_'):
+                check(
+                    '参数' in content or 'parameter' in content.lower(),
+                    f"[{tool_name}/{version}] 工具类 README.md 建议包含参数说明",
+                    is_warn=True
+                )
+
+        # 6. logo.png 大小
+        logo_path = os.path.join(version_path, 'logo.png')
+        if os.path.isfile(logo_path):
+            size_kb = os.path.getsize(logo_path) / 1024
+            check(size_kb <= 500, f"[{tool_name}/{version}] logo.png 过大 ({size_kb:.1f}KB)，建议不超过 500KB", is_warn=True)
 
 def main():
     changed_files_path = sys.argv[1]
