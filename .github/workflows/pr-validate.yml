@@ -49,6 +49,10 @@ jobs:
           python .github/scripts/validate_pr.py changed_files.txt > result.txt 2>&1
           echo "exit_code=$?" >> $GITHUB_OUTPUT
           cat result.txt
+          
+      - name: Print result
+        if: always()
+        run: cat result.txt
 
       - name: Comment on PR
         if: github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch'
