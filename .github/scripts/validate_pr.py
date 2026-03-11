@@ -15,17 +15,19 @@ def check(cond, msg, is_warn=False):
     if not cond:
         (warnings if is_warn else errors).append(msg)
 
-def get_valid_tags(root_yaml_path='data.yaml'):
-    if not os.path.isfile(root_yaml_path):
-        print(f"⚠️  未找到根配置文件 {root_yaml_path}，跳过 tags 校验")
+def get_valid_tags():
+    root = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../..')
+    yaml_path = os.path.join(root, 'tools/data.yaml')
+    if not os.path.isfile(yaml_path):
+        print(f"⚠️  未找到 tools/data.yaml，跳过 tags 校验")
         return set()
     try:
-        with open(root_yaml_path, encoding='utf-8') as f:
+        with open(yaml_path, encoding='utf-8') as f:
             data = yaml.safe_load(f)
         tags = data.get('additionalProperties', {}).get('tags', [])
         return {tag['name'] for tag in tags if 'name' in tag}
     except yaml.YAMLError as e:
-        print(f"⚠️  根配置文件解析失败: {e}")
+        print(f"⚠️  tools/data.yaml 解析失败: {e}")
         return set()
 
 def get_changed_tool_dirs(changed_files_path):
@@ -99,11 +101,11 @@ def validate_tool_dir(tool_path, valid_tags):
     logo_path = os.path.join(tool_path, 'logo.png')
     if os.path.isfile(logo_path):
         size_kb = os.path.getsize(logo_path) / 1024
-        check(size_kb <= 500, f"[{tool_name}] logo.png 文件过大 ({size_kb:.1f}KB)，建议不超过 500KB", is_warn=True)
+        check(size_kb <= 500, f"[{tool_name}] logo.png 过大 ({size_kb:.1f}KB)，建议不超过 500KB", is_warn=True)
 
 def main():
     changed_files_path = sys.argv[1]
-    valid_tags = get_valid_tags('data.yaml')
+    valid_tags = get_valid_tags()
     tool_dirs = get_changed_tool_dirs(changed_files_path)
 
     if not tool_dirs:
