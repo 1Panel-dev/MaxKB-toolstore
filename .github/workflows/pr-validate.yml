@@ -26,7 +26,11 @@ jobs:
 
       - name: Checkout PR branch
         if: github.event_name == 'workflow_dispatch'
-        run: gh pr checkout ${{ inputs.pr_number }}
+        run: |
+          cp .github/scripts/validate_pr.py /tmp/validate_pr.py
+          gh pr checkout ${{ inputs.pr_number }}
+          mkdir -p .github/scripts
+          cp /tmp/validate_pr.py .github/scripts/validate_pr.py
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -52,12 +56,9 @@ jobs:
         id: validate
         working-directory: ${{ github.workspace }}
         run: |
-          python .github/scripts/validate_pr.py changed_files.txt 2>&1 | tee result.txt
-          echo "exit_code=${PIPESTATUS[0]}" >> $GITHUB_OUTPUT
-
-      - name: Print result
-        if: always()
-        run: cat result.txt
+          python .github/scripts/validate_pr.py changed_files.txt > result.txt 2>&1
+          echo "exit_code=$?" >> $GITHUB_OUTPUT
+          cat result.txt
 
       - name: Comment on PR
         if: always() && (github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch')
