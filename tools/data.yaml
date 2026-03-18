@@ -74,9 +74,9 @@ additionalProperties:
         zh-hant: "模型記憶"
         zh: "模型记忆"
     - key: skill
-      name: 技能
+      name: Skills
       sort: 110
       locales:
-        en: "SKILL"
-        zh-hant: "技能"
-        zh: "技能"
+        en: "Skills"
+        zh-hant: "Skills"
+        zh: "Skills"
