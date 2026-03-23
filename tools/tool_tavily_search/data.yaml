@@ -1,0 +1,5 @@
+name: Tavily 搜索
+tags:
+  - 联网搜索
+title: 使用 Tavily Search API 执行联网搜索
+description: 基于 Tavily Search API 的单入口搜索工具，用于执行联网搜索并返回原始 JSON 结果。
