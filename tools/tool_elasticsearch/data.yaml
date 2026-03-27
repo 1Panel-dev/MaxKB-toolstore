@@ -1,0 +1,5 @@
+name: Elasticsearch 数据库查询
+tags:
+  - 数据库查询
+title: 实现 Elasticsearch 的只读查询操作
+description: 实现 Elasticsearch 8.x 的只读查询操作，支持文档搜索、聚合分析、集群信息查询等功能，提供安全的白名单验证机制。
