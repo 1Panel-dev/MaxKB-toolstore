@@ -8,7 +8,7 @@
 
 离线部署 MinerU 操作步骤链接如下:
 
-https://mineru.site/%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/2025/05/22/1fa9e6fa-6062-8065-82db-cc0cf9818496
+https://opendatalab.github.io/MinerU/zh/quick_start/docker_deployment/
 
 ### 配置参数
 MaxKB v2.4 及以上版本，需修改配置文件 `/opt/maxkb/conf/maxkb.env`
