@@ -81,9 +81,9 @@ additionalProperties:
         zh-hant: "Skills"
         zh: "Skills"
     - key: workflow
-      name: 工作流工具
+      name: 工作流模板
       sort: 120
       locales:
         en: "Workflow Tool"
-        zh-hant: "工作流工具"
-        zh: "工作流工具"
+        zh-hant: "工作流模板"
+        zh: "工作流模板"
