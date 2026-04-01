@@ -80,10 +80,10 @@ additionalProperties:
         en: "Skills"
         zh-hant: "Skills"
         zh: "Skills"
-    - key: workflow
+    - key: workflow_template
       name: 工作流模板
       sort: 120
       locales:
-        en: "Workflow Tool"
+        en: "Workflow Template"
         zh-hant: "工作流模板"
         zh: "工作流模板"
