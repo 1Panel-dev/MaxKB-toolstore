@@ -1,0 +1,5 @@
+name: Jina Reader
+tags:
+  - 内容处理
+title: Jina AI Reader
+description: 使用 Jina AI Reader 将任意 URL 转换为 LLM 友好的 Markdown 格式，支持全文提取和智能清理

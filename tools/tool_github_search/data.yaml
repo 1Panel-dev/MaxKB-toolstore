@@ -1,0 +1,5 @@
+name: GitHub API 查询
+tags:
+  - 联网搜索
+title: GitHub API 查询工具
+description: 查询 GitHub 仓库信息、Issues、Pull Requests、Releases、贡献者等数据，支持仓库基本信息统计和动态查询
