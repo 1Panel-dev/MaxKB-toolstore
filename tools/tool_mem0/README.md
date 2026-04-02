@@ -1,12 +1,14 @@
 # Mem0 记忆
 
-基于 Mem0 ，对其进行添加记忆、检索记忆、获取记忆、更新记忆、重置记忆、删除记忆。
+基于本地部署的 Mem0 REST API Server，对其进行添加记忆、检索记忆、获取记忆、更新记忆、重置记忆、删除记忆。
 
 ## 一、环境准备
 
-### 1 部署 Mem0 服务
+### 1 本地部署 Mem0 REST API Server
 
-服务下载地址：
+**注意:** 基于 mem0-1.0.3 版本源码部署，在 main.py 里默认使用的是 OpenAI 模型且 update_memory 接口的参数 updated_memory 要求 Dict 类型，但实际需要的是 str 类型。基于此问题，将 main.py 文件里修改大语言模型为 vllm，向量模型为 ollama 且 update_memory 接口的入参也修改为 str，以此打成压缩包放至网盘里，需要的自取。
+
+Mem0 REST API Server 服务下载地址：
 链接：https://pan.quark.cn/s/9fc0a0232049
 提取码：QqXa
 
@@ -25,6 +27,10 @@ touch .env
 # 启动服务
 cd ~/server
 docker-compose -f docker-compose.yaml up -d
+
+# 执行 docker ps -a，可看到 mem0-dev-mem0-1，mem0-dev-postgres-1 以及 mem0-dev-neo4j-1 服务都正常启动，
+
+# 访问 ：http://服务器IP:8888/docs#/，即可打开 Mem0 REST API 页面
 ```
 
 ## 二、工具说明
