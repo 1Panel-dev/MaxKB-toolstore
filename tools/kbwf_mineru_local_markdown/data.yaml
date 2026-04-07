@@ -1,0 +1,5 @@
+name: MinerU 本地 PDF 入库工作流模板
+tags:
+  - 知识库模板
+title: 基于本地离线 MinerU 解析 PDF 为 Markdown，并完成文档分段与知识库入库
+description: 基于本地离线部署的 MinerU，将单个 PDF 解析为 Markdown 文本，再通过 MaxKB 工作流完成文档分段和知识库入库，适用于内网环境与离线部署场景。
