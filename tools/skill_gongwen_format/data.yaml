@@ -1,0 +1,5 @@
+name: 公文排版技能
+tags:
+  - Skills
+title: 党政机关公文标准排版Pro版（GB/T 9704-2012）
+description: 将Markdown/TXT/DOCX文本转换为符合国标排版的Word文档，支持红头、发文字号、版记等完整公文要素。
