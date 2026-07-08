@@ -1,0 +1,5 @@
+name: Confluence 数据源
+tags:
+  - 数据源
+title: 从 Confluence 页面同步内容到 MaxKB 知识库
+description: 支持 Confluence Server/Data Center（API v1），按指定页面获取该页面及其所有子孙页面，无附件时导出 Markdown，有附件时导出 zip 文档包（Markdown + assets）。
