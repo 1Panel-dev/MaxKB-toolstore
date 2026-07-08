@@ -47,9 +47,9 @@ chmod 777 /tmp
 | --- | --- | --- | --- | --- |
 | `url_prefix` | String | ✅ | MaxKB 基础地址前缀，用于拼接文件下载地址 | `http://192.168.11.114:8080/admin` |
 | `mineru_gradio_url` | String | ✅ | 本地 MinerU Gradio 服务地址 | `http://192.168.11.114:7860/` |
-| `gradio_retry_count` | Integer | ❌ | Gradio 调用失败时的重试次数 | `2` |
-| `max_convert_pages` | Integer | ❌ | 最大处理页数，用于限制单次解析范围 | `500` |
-| `timeout` | Integer | ❌ | 下载与解析超时时间，单位秒 | `600` |
+| `upload_token` | String | ✅ | MaxKB 的用户 api_key | - |
+| `backend` | String | ✅ | MinerU 的处理引擎模式 | pipeline、hybrid-auto-engine、vlm-auto-engine 等 |
+| `knowledge_id` | String | ✅ | 当前的知识库id，可以让图片永久保留 | - |
 
 ## 输出结果
 
@@ -58,13 +58,9 @@ chmod 777 /tmp
 ```json
 [
   {
-    "status": "completed",
-    "task_id": "local-xxxxxxxxxxxx",
-    "name": "xxx.pdf",
-    "size": 12345,
-    "uid": 1775184,
-    "content": "# Markdown...",
-    "markdown_raw": "# Markdown(rendered)..."
+    "id": "xxx-xxxxx",
+    "name": "xx.pdf",
+    "content": "## Markdown 内容"
   }
 ]
 ```
@@ -72,7 +68,6 @@ chmod 777 /tmp
 字段说明：
 
 - `content`：推荐给下游节点使用的 Markdown 文本
-- `markdown_raw`：MinerU 渲染版 Markdown，便于排查格式问题
 
 ## 使用建议
 
