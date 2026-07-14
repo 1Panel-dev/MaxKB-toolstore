@@ -2,4 +2,4 @@ name: Kodbox 文件上传与分享
 tags:
   - 内容处理
 title: 上传文件到 Kodbox 并生成分享链接
-description: 连接 Kodbox 网盘，批量上传文件并生成免登录分享链接
+description: 连接 Kodbox 网盘，批量上传文件并生成免登录分享链接，支持在线预览 Word、Excel、PPT、PDF、图片、视频等文件
