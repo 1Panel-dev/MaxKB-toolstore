@@ -48,10 +48,60 @@ MAXKB_SANDBOX_PYTHON_ALLOW_SUBPROCESS=1
 | `password`   | 字符串   | Kodbox 密码  | `<password>` |
 
 ### 输入参数    
-| 参数名称             | 参数类型 | 参数说明                                 | 默认值                                                                                                                                                                                                                                                                                                                           |
-|------------------|------|--------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `content`        | 字符串  | Markdown 文本                          |                                                                                                                                                                                                                                                                                                                               |
-| `file_name`      | 字符串  | DOCX 文件名                             |                                                                                                                                                                                                                                                                                                                               |
-| `base_image_url` | 字符串  | MaxKB 知识库中图片地址前缀                     | `https://<MaxKB_URL>/admin/`                                                                                                                                                                                                                                                                                                  |
-| `format`         | 字典   | 指定正文及表格(字体、字号、行距、首行缩进、对齐方式)、页边距、图片行距 | `{"fontName":"宋体","fontSize":"12","lineSpacing":"1.5","firstLineIndent":"2","alignment":"left","tableFontName":"宋体","tableFontSize":"12","tableFirstLineIndent":"2","tableAlignment":"center","tableLineSpacing":"1.0","topSection":"2.5","bottomSection":"2","leftSection":"2","rightSection":"2","imageLineSpacing":"1.0"}` |
+| 参数名称             | 参数类型 | 参数说明                                 | 默认值                                                                                                                                                                                                                                                                                                                          |
+|------------------|------|--------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `content`        | 字符串  | Markdown 文本                          |                                                                                                                                                                                                                                                                                                                              |
+| `file_name`      | 字符串  | DOCX 文件名                             |                                                                                                                                                                                                                                                                                                                              |
+| `base_image_url` | 字符串  | MaxKB 知识库中图片地址前缀                     | `https://<MaxKB_URL>/admin/`                                                                                                                                                                                                                                                                                                 |
+| `format`         | 字典   | 文档格式配置（详见下方格式参数说明） | 见下表 |
 
+#### 格式参数说明（`format` 字段）
+
+`format` 参数是一个字典，用于精细控制生成 DOCX 文档的排版样式。各字段说明如下：
+
+| 参数名称                   | 类型 | 说明 | 可选值/示例                                         | 默认值      |
+|------------------------| --- | ---- |------------------------------------------------|----------|
+| **正文样式**               | | |                                                |          |
+| `fontName`             | 字符串 | 正文字体 | 如：宋体、仿宋                                        | `宋体`     |
+| `fontSize`             | 字符串 | 正文字号 | 数字，单位为磅（pt），如：`12` 对应小四                        | `12`     |
+| `lineSpacing`          | 字符串 | 正文行距 | 倍数，如：`1.0`、`1.5`                               | `1.5`    |
+| `firstLineIndent`      | 字符串 | 正文首行缩进 | 字符数，如：`2` 表示缩进 2 个字符                           | `2`      |
+| `alignment`            | 字符串 | 正文对齐方式 | `left`（左对齐）、`center`（居中）、`right`（右对齐）、`justify`（两端对齐） | `left`   |
+| **表格样式**               | | |                                                |          |
+| `tableFontName`        | 字符串 | 表格字体 | 同正文字体                                          | `宋体`     |
+| `tableFontSize`        | 字符串 | 表格字体大小 | 数字，单位为磅（pt）                                    | `12`     |
+| `tableFirstLineIndent` | 字符串 | 表格内文字首行缩进 | 字符数                                            | `0`      |
+| `tableAlignment`       | 字符串 | 表格对齐方式 | `left`、`center`、`right`、`justify`              | `center` |
+| `tableLineSpacing`     | 字符串 | 表格行距 | 倍数                                             | `1.0`    |
+| **页面设置**               | | |                                                |          |
+| `topSection`           | 字符串 | 上页边距 | 数字，单位为厘米（cm），如：`2.5`                           | `2`      |
+| `bottomSection`        | 字符串 | 下页边距 | 数字，单位为厘米（cm）                                   | `2`      |
+| `leftSection`          | 字符串 | 左页边距 | 数字，单位为厘米（cm）                                   | `2`      |
+| `rightSection`         | 字符串 | 右页边距 | 数字，单位为厘米（cm）                                   | `2`      |
+| **图片样式**               | | |                                                |          |
+| `imageLineSpacing`     | 字符串 | 图片行距 | 倍数                                             | `1.0`    |
+
+**完整 `format` 参数示例：**
+
+```json
+{
+  "fontName": "宋体",
+  "fontSize": "12",
+  "lineSpacing": "1.5",
+  "firstLineIndent": "2",
+  "alignment": "left",
+  "tableFontName": "宋体",
+  "tableFontSize": "12",
+  "tableFirstLineIndent": "2",
+  "tableAlignment": "center",
+  "tableLineSpacing": "1.0",
+  "topSection": "2.5",
+  "bottomSection": "2",
+  "leftSection": "2",
+  "rightSection": "2",
+  "imageLineSpacing": "1.0"
+}
+```
+**智能体工作流使用示例**
+
+<img src="https://kaibo-1251506367.cos.ap-beijing.myqcloud.com/maxkb/appstoreImages/tool_md2docx_format.png">
