@@ -1,0 +1,5 @@
+name: DOCX 转 MD
+tags:
+  - 内容处理
+title:  使用 python-doc 将 DOCX 转为 MD，内置了EMF 矢量图转 PNG 图片处理能力。
+description: 本工具用于实现 DOCX 文件转 Markdown 转换，内置 EMF 矢量图转 PNG 图片处理能力；转换完成后输出 JSON 结构，JSON 中携带全部转换后的 Markdown 文本与生成的 PNG 图片资源。
