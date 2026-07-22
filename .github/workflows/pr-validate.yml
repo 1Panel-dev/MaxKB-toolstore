@@ -24,8 +24,11 @@ jobs:
         uses: actions/checkout@v4
         with:
           # 修改点 2：如果是 PR 触发，强制拉取 PR 的最新提交代码进行校验
+          # allow-unsafe-pr-checkout: 在 pull_request_target 事件中需要显式
+          # 允许 checkout PR 代码（checkout@v4.4.0+ 要求此选项）
           ref: ${{ github.event.pull_request.head.sha || github.ref }}
           fetch-depth: 0
+          allow-unsafe-pr-checkout: true
 
       - name: Checkout PR branch (Manual)
         if: github.event_name == 'workflow_dispatch'
