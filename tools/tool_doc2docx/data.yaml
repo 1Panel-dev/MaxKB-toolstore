@@ -1,5 +1,5 @@
 name: Word文档转DOCX工具
 tags:
-  - AI工具
+  - 内容处理
 title: 将 DOC 文档转换为 DOCX 并返回下载链接。
 description: 用于将 MaxKB 中引用的 DOC 文档转换为 DOCX 格式，上传至临时对象存储后返回可下载链接的工具。
