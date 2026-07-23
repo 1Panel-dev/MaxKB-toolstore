@@ -1,18 +1,22 @@
 ## 2.1.0 版本说明
 
-- 修正标题提取表达式以及优化提示词
+- 修正提取标题表达式以及优化提示词
 
-## MinerU 离线 PDF 转换 Markdown 工具
+## 在线 MinerU API 解析 PDF 工具
 
-启动参数
- - MaxKB 基础地址前缀： MaxKB 的访问地址 (https://maxkb访问地址/admin)。
- - 本地 MinerU Gradio 地址：本地 minerU_Gradio 访问地址(http://minerU_Gradio访问地址:7860/)，mineru使用版本为 3.2.3
- - 上传 Token：用于 MaxKB OSS 接口鉴权的 Token(user-74xxx)
- - 解析引擎：MinerU 的处理引擎模式(pipeline、hybrid-auto-engine、vlm-auto-engine等)
- - 知识库id: 当前工作流知识库的id
+### 启动参数（环境变量）
+| 参数名 | 组件类型 | 必填 | 描述                                                                                 |
+| :--- | :--- | :--- |:-----------------------------------------------------------------------------------|
+| `api_token` | 密码框 | 是 | MinerU 平台的 API Token。可在 [MinerU 官方 API 管理](https://mineru.net/apiManage/token) 创建。 |
+| `maxkb_base_url` | 文本框 | 是 | **关键参数**：MaxKB 的外网访问地址，用于 MinerU 服务器远程下载待解析文件。                                     |
+| `maxkb_api_token` | 文本框 | 是 | MaxKB 的用户api_key |
+| `kb_id` | 文本框 | 是 | 当前的知识库id，让图片永久保留  |
 
-输入参数:
- - file_input ：MaxKB 传入的文件列表
+### 输入参数
+| 参数名 | 数据类型 | 必填 | 描述 |
+| :--- | :--- | :--- | :--- |
+| `pdf_file_list` | array | 是 | 引用参数，MaxKB 自动传入的文件列表。 |
 
-输出结果:
- - 列表({"id":"文件id","name":"文件名字","content":"提取的 markdown 结果"})
+
+### 输出结果:
+ - 提取的 markdown 结果
