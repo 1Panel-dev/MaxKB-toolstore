@@ -1,6 +1,7 @@
 ## 2.1.0 版本说明
 
 - 修正标题提取表达式以及优化提示词
+- 新增参数 enable_llm_enhancement（是否启用 LLM 标题增强）：关闭时，MinerU 转换 PDF 后直接入库；开启时，转换后提取标题，由大模型按标题层级结构化入库。
 
 ## MinerU 离线 PDF 转换 Markdown 工具
 
