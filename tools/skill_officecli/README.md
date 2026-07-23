@@ -36,7 +36,7 @@
 
 | 参数 | 说明 | 用途 |
 |------|------|------|
-| `BASE_URL` | officecli API 服务地址 | 指定 officecli 后端服务地址 |
+| `BASE_URL` | MaxKB API 服务地址 | 指定 MaxKB 后端服务地址 |
 | `API_KEY` | API 认证密钥 | 用于 API 调用鉴权 |
 
 ## 四、注意事项
