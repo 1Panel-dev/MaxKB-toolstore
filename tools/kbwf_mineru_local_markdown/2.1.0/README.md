@@ -4,9 +4,11 @@
 
 ## MinerU 离线 PDF 转换 Markdown 工具
 
+**注意**: 离线的 mineru 使用版本为 3.2.3
+
 启动参数
  - MaxKB 基础地址前缀： MaxKB 的访问地址 (https://maxkb访问地址/admin)。
- - 本地 MinerU Gradio 地址：本地 minerU_Gradio 访问地址(http://minerU_Gradio访问地址:7860/)，mineru使用版本为 3.2.3
+ - 本地 MinerU Gradio 地址：本地 minerU_Gradio 访问地址(http://minerU_Gradio访问地址:7860/)
  - 上传 Token：用于 MaxKB OSS 接口鉴权的 Token(user-74xxx)
  - 解析引擎：MinerU 的处理引擎模式(pipeline、hybrid-auto-engine、vlm-auto-engine等)
  - 知识库id: 当前工作流知识库的id
