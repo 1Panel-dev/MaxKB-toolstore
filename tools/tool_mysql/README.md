@@ -40,3 +40,19 @@
 - `to_json_str` (Boolean): 结果是否转换为JSON字符串
   - `true`: 输出 JSON字符串
   - `false`: 输出 List
+
+## 版本更新记录：
+
+### 1.0.1
+
+1. bugfix: 当SQL使用 `{xxx}` 占位时，如果SQL中存在 `%` 字符，则会报错的问题修复。
+
+    举例：BUG修复前，当传入如下参数时，工具会抛出异常：`TypeError: not enough arguments for format string`
+    ```json
+    {
+      "sql": "SELECT * FROM user WHERE type_id = {type_id} AND name LIKE '王%'",
+      "params": {
+        "type_id": "1"
+      }
+    }
+    ```
