@@ -1,0 +1,5 @@
+name: unoserver 文档类型转换工具
+tags:
+  - 内容处理
+title: 支持 DOC->DOCX、WPS->DOCX、PPT->PPTX 文档类型转换。
+description: 实现DOC->DOCX、WPS->DOCX、PPT->PPTX 以上文档类型转换，并上传至MaxKB,返回响应信息。
