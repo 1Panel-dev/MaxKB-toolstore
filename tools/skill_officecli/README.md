@@ -1,8 +1,18 @@
-# OfficeCLI 技能
+# OfficeCLI for MaxKB
 
-让 AI 智能体完全掌控 Word、Excel 和 PowerPoint——只需一行命令。OfficeCLI 是全球首个专为 AI 智能体设计的 Office 套件，开源免费，单一可执行文件，无需安装 Office，全平台运行。
+## 应用描述
 
-开源地址：[https://github.com/iOfficeAI/OfficeCLI](https://github.com/iOfficeAI/OfficeCLI)
+专为 MaxKB 智能体改造适配的 OfficeCLI Skill，支持 AI 操作 Word / Excel / PowerPoint 文档，无需本地安装 Office。
+
+## 开源仓库与反馈
+
+> ⚠️ 本 Skill 为针对 MaxKB 独立改造适配版本，为单独维护仓库，不等同于上游原版 OfficeCLI。
+
+本Skill GitHub：[https://github.com/North-CS/maxkb-skill-officecli](https://github.com/North-CS/maxkb-skill-officecli)
+
+如遇到 Skill 加载、参数配置、AI调用异常等问题，请前往上述仓库提交 Issue。
+
+底层依赖开源 OfficeCLI：[https://github.com/iOfficeAI/OfficeCLI](https://github.com/iOfficeAI/OfficeCLI)
 
 ## 一、功能说明
 

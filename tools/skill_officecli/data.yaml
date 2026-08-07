@@ -2,4 +2,4 @@ name: OfficeCLI
 tags:
   - Skills
 title: 让 AI 智能体完全掌控 Word、Excel 和 PowerPoint
-description: 全球首个专为 AI 设计的 Office 套件 CLI，支持创建、读取、修改 .docx/.xlsx/.pptx，内置 HTML 渲染引擎，无需安装 Office，全平台运行。
+description: 专为 MaxKB 智能体改造适配的 OfficeCLI Skill，支持 AI 操作 Word / Excel / PowerPoint 文档，无需本地安装 Office。
