@@ -1,5 +1,12 @@
 # MinerU 本地 PDF 入库工作流模板
 
+## 版本说明
+
+**当前版本**：2.3.0
+
+- 适用于 MaxKB v2.10.4-lts 及以上版本
+- 本地 MinerU 版本为 3.4.4
+
 ## 简介
 
 **MinerU 本地 PDF 入库工作流模板** 是一个面向知识库构建场景的工作流模板。它调用本地离线部署的 MinerU（Gradio 服务）解析用户上传的 PDF，直接获取 Markdown 文本，并在 MaxKB 内继续完成文档分段和知识库入库。
@@ -10,7 +17,7 @@
 
 - 接收用户上传的 PDF 文件
 - 调用本地 MinerU 服务完成 PDF 转 Markdown
-- 直接使用 Markdown 文本进入文档分段节点
+- 可选开启 LLM 标题增强，由大模型修正标题层级后再分段入库
 - 将分段结果写入指定知识库，完成 RAG 入库
 
 ## 前置条件
@@ -43,6 +50,8 @@ chmod 777 /tmp
 3. 文档分段节点：对 Markdown 文本进行切分
 4. 知识库写入节点：将切分后的结果写入知识库
 
+开启 `enable_llm_enhancement` 后，MinerU 工具与文档分段之间会增加标题提取、AI 对话和标题替换节点，由大模型修正标题层级后再入库。
+
 ## 关键参数
 
 ### MinerU 工具节点输入参数
@@ -50,36 +59,67 @@ chmod 777 /tmp
 | 参数名 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `file_input` | Array / Object | ✅ | 开始节点传入的文件对象 |
-| `url_prefix` | String | ✅ | MaxKB 基础地址前缀，用于拼接文件下载地址 |
-| `mineru_gradio_url` | String | ✅ | 本地 MinerU Gradio 服务地址 |
-| `gradio_retry_count` | Integer | ❌ | Gradio 调用失败时的重试次数 |
-| `max_convert_pages` | Integer | ❌ | 最大处理页数 |
-| `timeout` | Integer | ❌ | 下载与解析超时时间，单位秒 |
+
+### MinerU 工具节点启动参数
+
+| 参数名 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| `url_prefix` | String | ✅ | MaxKB 基础地址前缀，用于拼接文件下载地址，如 `http://<maxkb-ip>:8080/admin` |
+| `mineru_gradio_url` | String | ✅ | 本地 MinerU Gradio 服务地址，如 `http://<mineru-ip>:7860/` |
+| `upload_token` | String | ✅ | MaxKB 用户 API Token（`user-xxx`），用于 OSS 接口鉴权 |
+| `backend` | String | ✅ | MinerU 处理引擎模式，如 `pipeline`、`hybrid-auto-engine`、`vlm-auto-engine` |
+| `knowledge_id` | String | ✅ | 当前工作流知识库 ID，用于图片上传归属，保证图片永久保留 |
+| `username` | String | ✅ | MaxKB 登录用户名，用于获取文件下载鉴权 Cookie |
+| `password` | String | ✅ | MaxKB 登录密码 |
+
+### 工作流全局参数
+
+| 参数名 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| `enable_llm_enhancement` | Boolean | ❌ | 是否启用 LLM 标题增强；关闭时转换后直接分段入库，开启时由大模型修正标题层级后再入库 |
 
 ### 启动参数示例
 
 | 参数名 | 示例值 |
 | --- | --- |
-| `url_prefix` | `http://192.168.11.114:8080/admin` |
-| `mineru_gradio_url` | `http://192.168.11.114:7860/` |
-| `gradio_retry_count` | `2` |
-| `max_convert_pages` | `500` |
-| `timeout` | `600` |
+| `url_prefix` | `http://192.168.1.100:8080/admin` |
+| `mineru_gradio_url` | `http://192.168.1.100:7860/` |
+| `upload_token` | `user-74xxxxxx` |
+| `backend` | `pipeline` |
+| `knowledge_id` | 工作流绑定的知识库 ID |
+| `username` | `admin` |
+| `password` | `********` |
+
+## LLM 标题增强说明
+
+### MinerU llm-aided config
+
+`llm-aided config` 是 MinerU 中 `mineru.json` 配置文件的一部分，用于配置并启用大模型辅助识别和优化 PDF 文档中的标题层级。开启后，MinerU 在解析复杂 PDF 时会利用大模型智能识别文档中的标题，划分多级标题层级（H1、H2、H3 等），让转换出的 Markdown 结构更清晰规范。
+
+### enable_llm_enhancement
+
+`enable_llm_enhancement` 是 MaxKB 工作流编排层的业务开关。开启后，工作流会通过后半段的 `ai-chat-node`（大模型对话节点）配合 Prompt，对 MinerU 提取出的标题进行结构化纠错，再按修正后的层级进行文档分段和知识库入库。
+
+### 使用建议
+
+建议在 MinerU 中开启 `llm-aided config`，以保证转换出的 Markdown 标题层级仍然清晰规范。若无法开启，建议使用工作流中的  `enable_llm_enhancement`。
 
 ## 使用说明
 
 1. 导入该 `kbwf` 模板到 MaxKB
 2. 确认工具节点中的 `url_prefix` 与 `mineru_gradio_url` 填写正确
-3. 按需设置 `gradio_retry_count`、`max_convert_pages`、`timeout`
-4. 上传测试 PDF 文件
-5. 检查工具节点输出中的 `content`
-6. 确认文档分段与知识库写入结果正常
+3. 填写 `upload_token`、`knowledge_id`、`username`、`password`
+4. 按需设置 `backend` 解析引擎
+5. 上传测试 PDF 文件
+6. 按需开启 `enable_llm_enhancement`
+7. 检查工具节点输出中的 `content`
+8. 确认文档分段与知识库写入结果正常
 
 ## 注意事项
 
 - 该模板依赖本地 MinerU 服务可访问，不能直接替代在线 MinerU API 工作流
-- 该模板输出以 Markdown 文本为主，不包含图片上传 OSS 的处理链路
-- 如果 PDF 文件较大或内容复杂，建议调大 `timeout` 并确认容器临时目录可写
+- 2.3.0 版本使用 `/convert_to_markdown_stream` 接口，适用于 MaxKB v2.10.4-lts 及以上版本
+- 如果 PDF 文件较大或内容复杂，建议确认容器临时目录可写，并为任务预留足够的超时时间
 
 ## 关联工具
 
