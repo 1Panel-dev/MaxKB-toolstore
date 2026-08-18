@@ -1,0 +1,5 @@
+name: 智能MaxKB知识库检索
+tags:
+  - Skills
+title: 基于 MaxKB 知识库的渐进式 RAG 检索与证据获取
+description: 面向 AI Agent 的 MaxKB 知识库检索技能。统一渐进式检索链路：默认走最短路径（简单问题一次 search 即够），证据不足时自动升级 Query Rewrite → Paragraph 兜底 → Section/Context。对枚举/计数型问题会先枚举知识库文档清单作为答案边界。返回结构化证据（hits / rounds / failures / doc_inventory），由 AI 判断证据是否足够并据此作答；检索失败或零命中不等于"知识库没有该内容"，不得编造。仅依赖 Python 标准库。
