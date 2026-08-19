@@ -1,4 +1,4 @@
-name: 智能MaxKB知识库检索
+name: MaxKB RAG-QA技能
 tags:
   - Skills
 title: 基于 MaxKB 知识库的渐进式 RAG 检索与证据获取
