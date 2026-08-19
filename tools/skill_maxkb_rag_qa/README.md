@@ -1,4 +1,4 @@
-# 智能MaxKB知识库检索
+# MaxKB RAG-QA技能
 
 面向 AI Agent 的通用 MaxKB RAG 检索技能。核心采用**统一、渐进式检索链路**，不人为区分简单问题和复杂问题：所有问题优先走 Vector/Blend，只有证据不足时才逐级升级到 Query Rewrite、Paragraph Fallback、Section/Context 和必要的多步检索。
 
