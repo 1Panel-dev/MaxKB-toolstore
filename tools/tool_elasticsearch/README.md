@@ -25,11 +25,11 @@
 在使用此工具之前，需要先安装所需的依赖包：
 
 ```bash
-pip install elasticsearch>=8.0.0,<9.0.0
+pip install "elasticsearch>=8.12.0,<9.0.0"
 ```
 
 依赖包说明：
-- `elasticsearch>=8.0.0,<9.0.0` - Elasticsearch Python 客户端（8.x 版本）
+- `elasticsearch>=8.12.0,<9.0.0` - Elasticsearch Python 客户端（8.12+ 版本，工具使用 `client.perform_request` 通用请求 API）
 
 ## 参数说明
 
