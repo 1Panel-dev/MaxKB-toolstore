@@ -4,15 +4,6 @@
 
 注意：只支持离线部署的 MinerU
 
-## 版本适配说明
-
-| 工具版本 | 适配的 MinerU 版本 | 说明 |
-|---------|-------------------|------|
-| **1.0.7** | **MinerU v4** | 适配 v4 新接口（`/convert_handler`），工具内显示名为 `MinerU-v4 解析pdf`；新增解析档位 `tier`（0~3，默认 2） |
-| 1.0.6 | MinerU 3.x | 直连 Gradio HTTP API，不再依赖 `gradio_client` |
-
-> ⚠️ MinerU v4 与 v3 的 Gradio 接口不兼容。请根据你部署的 MinerU 版本选择对应工具版本：MinerU 为 v4 选 1.0.7，MinerU 为 3.x 选 1.0.6。
-
 ## 离线部署 MinerU
 
 离线部署 MinerU 操作步骤链接如下:
@@ -26,6 +17,7 @@ MaxKB v2.4 及以上版本，需修改配置文件 `/opt/maxkb/conf/maxkb.env`
 MAXKB_SANDBOX_TMP_DIR_ENABLED=1
 MAXKB_SANDBOX_PYTHON_ALLOW_SUBPROCESS=1
 MAXKB_SANDBOX_PYTHON_PROCESS_LIMIT_MEM_MB=521
+MAXKB_FILE_AUTH=0
 ```
 重启 maxkb 容器
 ```bash
@@ -51,8 +43,6 @@ chmod 777 /tmp
 ## 参数说明
 
 ### 启动参数
-
-> 下表为 1.0.6（MinerU 3.x）的完整参数。1.0.7（MinerU v4）中 `enable_formula`、`language`、`enable_table`、`backend`、`backend_server_url`、`max_convert_pages` 已无对应能力、运行时被忽略，实际解析能力由解析档位 `tier`（0~3，默认 2）决定，详见 `1.0.7/README.md`。
 
 | 参数名称                    | 参数类型     | 参数说明                                          | 默认值                                                         |
 |-------------------------|--------------|--------------------------------------------------|-------------------------------------------------------------|
