@@ -14,7 +14,7 @@
 ## 工作流能力
 
 - 接收用户上传的多种文件：PDF / Word(docx) / PPT(pptx) / Excel(xlsx) / 图片
-- 调用 MinerU v4.0.10 解析服务（`http://<mineru-ip>:8001`）完成文档转 Markdown
+- 调用 MinerU v4.0.10 解析服务（`http://<mineru-ip>:8000`）完成文档转 Markdown
 - 可选开启 **Word 转 PDF** 开关：`word_pdf_enable=true` 时先经 unoserver 转换，`false` 时直接透传解析
 - 将分段结果写入指定知识库，完成 RAG 入库
 
@@ -56,17 +56,17 @@
 
 ### MinerU v4 解析工具节点启动参数
 
-| 参数名 | 类型 | 必填 | 说明 |
-| --- | --- | --- | --- |
-| `mineru_api_base_url` | String | ✅ | MinerU v4 API 服务地址，如 `http://<mineru-ip>:8001` |
+| 参数名 | 类型 | 必填 | 说明                                                                              |
+| --- | --- | --- |---------------------------------------------------------------------------------|
+| `mineru_api_base_url` | String | ✅ | MinerU v4 API 服务地址，如 `http://<mineru-ip>:8000`                                  |
 | `tier` | String | ✅ | 解析档位，单选：`flash` 快速本地文本抽取 / `basic` 基础解析 / `standard` 标准（默认）/ `advanced` 复杂文档高精度 |
-| `url_prefix` | String | ✅ | MaxKB 基础地址前缀，用于拼接文件下载地址，如 `http://<maxkb-ip>:8080/admin` |
-| `upload_token` | String | ✅ | MaxKB 用户 API Token（`user-xxx`），用于 OSS 接口鉴权 |
-| `username` | String | ✅ | MaxKB 登录用户名 |
-| `password` | String | ✅ | MaxKB 登录密码 |
-| `knowledge_id` | String | ✅ | 当前工作流知识库 ID，用于图片上传归属 |
-| `max_wait_seconds` | Integer | ❌ | 解析任务最长等待秒数，默认 `1800` |
-| `poll_interval` | Integer | ❌ | 轮询间隔（秒），默认 `2` |
+| `url_prefix` | String | ✅ | MaxKB 基础地址前缀，用于拼接文件下载地址，如 `http://<maxkb-ip>:8080/admin`                        |
+| `upload_token` | String | ✅ | MaxKB 用户 API Token（`user-xxx`），用于 OSS 接口鉴权                                      |
+| `username` | String | ✅ | MaxKB 登录用户名                                                                     |
+| `password` | String | ✅ | MaxKB 登录密码                                                                      |
+| `knowledge_id` | String | ✅ | 当前工作流知识库 ID，用于图片上传归属                                                            |
+| `max_wait_seconds` | Integer | ❌ | 解析任务最长等待秒数，默认 `1800`                                                            |
+| `poll_interval` | Integer | ❌ | 轮询间隔（秒），默认 `2`                                                                  |
 
 ## LLM 标题增强说明
 
