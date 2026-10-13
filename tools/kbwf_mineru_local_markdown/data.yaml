@@ -2,4 +2,4 @@ name: MinerU 本地 PDF 入库工作流模板
 tags:
   - 知识库模板
 title: 基于 MinerU API 解析 PDF/Word/PPT/Excel/图片为 Markdown，并完成文档分段与知识库入库
-description: 基于 MinerU API 服务（3.4.4，支持 /tasks 批量）将 PDF、Word(docx)、PPT、Excel、图片解析为 Markdown 文本，再通过 MaxKB 工作流完成文档分段与知识库入库；可选开启 Word 转 PDF 开关，先经 unoserver 转换后再解析。
+description: 基于本地 MinerU 解析服务（当前适配 MinerU v4，若使用 3.4.4 请选择 2.4.0）将 PDF、Word(docx)、PPT、Excel、图片解析为 Markdown 文本，再通过 MaxKB 工作流完成文档分段与知识库入库；可选开启 Word 转 PDF 开关，先经 unoserver 转换后再解析。

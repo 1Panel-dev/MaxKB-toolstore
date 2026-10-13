@@ -2,25 +2,25 @@
 
 ## 版本说明
 
-**当前版本**：2.4.0
+**当前版本**：2.5.0
 
 - 适用于 MaxKB v2.10.4-lts 及以上版本
-- 适配 MinerU（API 服务）3.4.4
+- 适配 MinerU v4（本地解析服务）；若仍在使用 MinerU API 3.4.4，请使用 2.4.0 模板
 
 ## 简介
 
-**MinerU 本地 PDF 入库工作流模板** 是一个面向知识库构建场景的工作流模板。它调用本地 MinerU API 服务解析用户上传的文档，直接获取 Markdown 文本，并在 MaxKB 内继续完成文档分段和知识库入库。
+**MinerU 本地 PDF 入库工作流模板** 是一个面向知识库构建场景的工作流模板。它调用本地 MinerU 解析服务解析用户上传的文档，直接获取 Markdown 文本，并在 MaxKB 内继续完成文档分段和知识库入库。
 
 ## 工作流能力
 
 - 接收用户上传的多种文件：PDF / Word(docx) / PPT(pptx) / Excel(xlsx) / 图片
-- 调用 MinerU API（`http://<mineru-ip>:9000`）完成文档转 Markdown
+- 调用 MinerU v4 解析服务（`http://<mineru-ip>:8001`）完成文档转 Markdown
 - 可选开启 **Word 转 PDF** 开关：`word_pdf_enable=true` 时先经 unoserver 转换，`false` 时直接透传解析
 - 将分段结果写入指定知识库，完成 RAG 入库
 
 ## 前置条件
 
-1. 已部署可访问的 MinerU API 服务（支持 `/tasks` 接口，默认 `http://<mineru-ip>:9000`）
+1. 已部署可访问的 MinerU v4 解析服务（默认 `http://<mineru-ip>:8001`）
 2. 若开启 Word 转 PDF 开关，需已部署可访问的 **unoserver** 服务（默认 `http://<unoserver-ip>:2003`）；部署参考：[unoserver 文档类型转换工具](https://apps.fit2cloud.com/maxkb/tool-unoserver-file-converter)
 
 ## 工作流结构
@@ -29,7 +29,7 @@
 
 1. **本地文件（数据源）**：接收用户上传的文件列表，得到 `file_list`（每项含 `file_id`、`name`）。
 2. **Word转PDF（工具节点）**：按 `word_pdf_enable` 开关分流——开启时经 unoserver 把 Word 转成 PDF 并回传；关闭时原样透传。
-3. **MinerU 解析（工具节点）**：把文件提交给本地 MinerU API（`/tasks`），轮询至解析完成后下载结果，得到 Markdown（含图片，图片上传至 MaxKB OSS 后路径被替换为可访问链接）。
+3. **MinerU v4 解析（工具节点）**：把文件提交给本地 MinerU v4 解析服务（`mineru-v4-parser`），按 `poll_interval`（默认 2 秒）轮询至任务完成（最长等待 `max_wait_seconds`，默认 1800 秒）后下载结果，得到 Markdown（含图片，图片上传至 MaxKB OSS 后路径被替换为可访问链接）。
 4. **文档分段**：按 Markdown 的标题层级切分文本。
 5. **知识库写入**：把切分结果写入指定知识库，完成 RAG 入库。
 
@@ -54,22 +54,19 @@
 | `password` | String | ✅ | MaxKB 登录密码 |
 | `source_id` | String | ✅ | 知识库 ID，用于上传归属（防止转出的 PDF 被临时清理） |
 
-### MinerU 解析工具节点启动参数
+### MinerU v4 解析工具节点启动参数
 
 | 参数名 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
-| `mineru_api_base_url` | String | ✅ | MinerU API 服务地址，如 `http://<mineru-ip>:9000` |
+| `mineru_api_base_url` | String | ✅ | MinerU v4 API 服务地址，如 `http://<mineru-ip>:8001` |
+| `tier` | String | ✅ | 解析档位，单选：`flash` 快速本地文本抽取 / `basic` 基础解析 / `standard` 标准（默认）/ `advanced` 复杂文档高精度 |
 | `url_prefix` | String | ✅ | MaxKB 基础地址前缀，用于拼接文件下载地址，如 `http://<maxkb-ip>:8080/admin` |
 | `upload_token` | String | ✅ | MaxKB 用户 API Token（`user-xxx`），用于 OSS 接口鉴权 |
 | `username` | String | ✅ | MaxKB 登录用户名 |
 | `password` | String | ✅ | MaxKB 登录密码 |
 | `knowledge_id` | String | ✅ | 当前工作流知识库 ID，用于图片上传归属 |
-| `backend` | String | ✅ | MinerU 处理引擎，如 `pipeline`、`hybrid-engine` |
-| `parse_method` | String | ✅ | 解析方式，如 `auto`、`txt`、`ocr` |
-| `effort` | String | ✅ | 解析力度，如 `medium`、`high` |
-| `formula_enable` | Boolean | ✅ | 是否解析公式 |
-| `table_enable` | Boolean | ✅ | 是否解析表格 |
-| `image_analysis` | Boolean | ✅ | 是否进行图片/图表分析 |
+| `max_wait_seconds` | Integer | ❌ | 解析任务最长等待秒数，默认 `1800` |
+| `poll_interval` | Integer | ❌ | 轮询间隔（秒），默认 `2` |
 
 ## LLM 标题增强说明
 
@@ -81,9 +78,9 @@
 ## 使用说明
 
 1. 导入该 `kbwf` 模板到 MaxKB
-2. 确认 `unoserver_url`、`api_base_url`、`mineru_api_base_url`、`url_prefix` 填写正确
-3. 填写两个工具节点的 `api_auth_token`、`username`、`password`、`knowledge_id` / `source_id`
-4. 按需设置 MinerU 的 `backend`、`parse_method` 等
+2. 确认 `mineru_api_base_url`、`url_prefix`、`unoserver_url`、`api_base_url` 填写正确
+3. 填写两个工具节点的 `upload_token` / `api_auth_token`、`username`、`password`、`knowledge_id` / `source_id`
+4. 按需选择 MinerU 解析档位 `tier`（默认 `standard`），必要时调整 `max_wait_seconds`、`poll_interval`
 5. 上传测试文件
 6. 按需开启 / 关闭 `word_pdf_enable` 开关
 7. 检查工具节点输出中的 `content`
@@ -91,8 +88,9 @@
 
 ## 注意事项
 
+- 本模板适配 **MinerU v4**；若解析服务仍为 MinerU API 3.4.4，请使用 2.4.0 模板
 - 若在 ON 状态混入非 Word 文件，Word转PDF 节点会因「不支持的文件格式」报错——请按文件类型分开上传
-- MinerU 3.4.4 原生支持 docx / pptx / xlsx / 图片，无需必经 Word 转 PDF
+- MinerU v4 原生支持 docx / pptx / xlsx / 图片，无需必经 Word 转 PDF
 - 若不使用 unoserver（即不开启 `word_pdf_enable`）：无需在 MaxKB 的 unoserver 文档转换工具（Word转PDF 节点）中设置任何启动参数，也不必打开 Word 转 PDF 开关。
 
 ## 为什么需要 LibreOffice 先转 PDF
@@ -110,4 +108,4 @@ MaxKB 采用**结构化分块**——按 Markdown 标题层级切分文档，因
 ## 关联工具
 
 - `tool_unoserver_file_converter`：Word 转 PDF 工具（依赖 unoserver 服务）
-- `mineru-parser`（MinerU API 批量解析）：调用本地 MinerU `/tasks` 接口解析
+- `mineru-v4-parser`（MinerU v4 解析）：调用本地 MinerU v4 解析服务并轮询取回结果
