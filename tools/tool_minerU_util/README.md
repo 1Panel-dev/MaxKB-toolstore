@@ -17,6 +17,7 @@ MaxKB v2.4 及以上版本，需修改配置文件 `/opt/maxkb/conf/maxkb.env`
 MAXKB_SANDBOX_TMP_DIR_ENABLED=1
 MAXKB_SANDBOX_PYTHON_ALLOW_SUBPROCESS=1
 MAXKB_SANDBOX_PYTHON_PROCESS_LIMIT_MEM_MB=521
+MAXKB_FILE_AUTH=0
 ```
 重启 maxkb 容器
 ```bash
@@ -25,23 +26,24 @@ docker restart maxkb
 
 ### 安装依赖
 
-在使用此工具之前，需要先安装所需的依赖包：
+> 1.0.6 起，本工具不再依赖 `gradio_client`（改为直连 MinerU Gradio 的 HTTP API），**无需**在 MaxKB 容器内安装任何 Python 依赖包。1.0.5 及更早版本仍需按下方方式安装 `gradio_client`。
 
 ```bash
-# 到 maxkb 容器内安装 gradio_client
+# 1.0.5 及更早版本：到 maxkb 容器内安装 gradio_client
 docker exec -it maxkb bash
 pip install gradio_client
 
 # 如果安装 gradio_client 提示 huggingface-hub 版本冲突，则使用 pip 的兼容性模式，同时安装兼容版本
 pip install gradio_client huggingface-hub==0.34.0
 
-# 授权 tmp 目录的访问操作权限
+# 授权 tmp 目录的访问操作权限（各版本均需要）
 chmod 777 /tmp
 ```
 
 ## 参数说明
 
 ### 启动参数
+
 | 参数名称                    | 参数类型     | 参数说明                                          | 默认值                                                         |
 |-------------------------|--------------|--------------------------------------------------|-------------------------------------------------------------|
 | `enable_formula`        | 开关           | 控制是否提取文件中的数学公式                             | True                                                        |
