@@ -42,9 +42,9 @@ pip install markdown python-docx beautifulsoup4 requests
 返回包含下载链接的 HTML 字符串。
 **格式示例：**
 ```html
-<html_rander>
+
   <a href="..." download="...">文件名.docx</a>
-</html_rander>
+
 ```
 ### 失败时：返回错误描述字符串（以 ✗ 开头）。
 
