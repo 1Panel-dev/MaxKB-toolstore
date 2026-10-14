@@ -1,0 +1,5 @@
+name: Datacircle 领英档案查询
+tags:
+  - 接口工具
+title: 通过 Datacircle 按 URL 实时查询领英个人档案
+description: Datacircle 是一个数据合作社。通过我们调用你常用的 B2B 数据 API：同样的请求，同样的价格，零加价。本工具按 URL 实时查询领英（LinkedIn）个人档案，经 Up2Data（默认）、HarvestAPI 或 Fetchin。
