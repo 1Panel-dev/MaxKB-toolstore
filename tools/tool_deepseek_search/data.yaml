@@ -1,0 +1,5 @@
+name: DeepSeek 联网搜索
+tags:
+  - 联网搜索
+title: 使用 DeepSeek Search API 执行联网搜索，返回结构化结果与带引用的 Markdown
+description: 基于 DeepSeek 官方 Search API（https://api.deepseek.com/v1/tools/search）的联网搜索工具。支持 site:、lang:、after:、before:、-关键词 等搜索语法，可控制返回条数并选择是否抓取网页正文；结果同时提供结构化 JSON 与可直接用于回答的 Markdown（含链接、站点、发布时间与权威性）。
