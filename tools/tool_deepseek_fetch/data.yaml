@@ -1,0 +1,5 @@
+name: DeepSeek 网页抓取
+tags:
+  - 联网搜索
+title: 使用 DeepSeek Fetch API 抓取单个网页并转换为 Markdown 正文
+description: 基于 DeepSeek 官方 Fetch API（https://api.deepseek.com/v1/tools/fetch）的网页抓取工具。输入 URL，返回页面标题与 Markdown 格式正文，支持控制正文字符上限；抓取失败时返回结构化错误与原因提示，不抛异常。与 DeepSeek 联网搜索工具配套使用，可完成"搜索 → 抓正文 → 生成回答"链路。
