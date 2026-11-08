@@ -1,0 +1,5 @@
+name: LinkDigest 社交链接转文本
+tags:
+  - 内容处理
+title: 小红书、抖音、B站等社交链接转成 AI 可读的文本
+description: 贴一条小红书、抖音、B站、微博、公众号、小宇宙、TikTok、YouTube、X 或 Instagram 链接（或整段分享文案），返回正文、带时间的口播文案、画面文字、要点和热评。不登录、不用 Cookie。
