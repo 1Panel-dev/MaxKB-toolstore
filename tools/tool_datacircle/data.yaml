@@ -1,5 +1,5 @@
-name: Datacircle 领英档案查询
+name: Datacircle GTM API 评测
 tags:
   - 接口工具
-title: 通过 Datacircle 按 URL 实时查询领英个人档案
-description: Datacircle 是一个数据合作社。通过我们调用你常用的 B2B 数据 API：同样的请求，同样的价格，零加价。本工具按 URL 实时查询领英（LinkedIn）个人档案，经 Up2Data（默认）、HarvestAPI 或 Fetchin。
+title: 查询 Datacircle 对所有 GTM API 的评测：每个 API 谁最好，每个套餐的得分与价格
+description: 找到最好的 GTM API。我们对所有 GTM API 做基准测试，并把结果放在我们的网站 https://datacircle.dev 上。本工具调用我们免费开放的 API，无需 Key：列出每个 API，查看每个 API 谁最好，搜索每个套餐。
