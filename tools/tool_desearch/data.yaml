@@ -1,0 +1,5 @@
+name: Desearch Web Search
+tags:
+  - 联网搜索
+title: Search the public web with Desearch
+description: Search through the hosted Desearch MCP service and return titles, HTTPS sources and snippets.
